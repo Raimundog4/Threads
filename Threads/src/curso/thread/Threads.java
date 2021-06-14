@@ -6,7 +6,6 @@ public class Threads {
 
 	public static void main(String[] args) throws InterruptedException {
 
-
 		/* Código da rotina que eu quero executar em paralelo */
 		for (int pos = 0; pos < 10; pos++) {
 
