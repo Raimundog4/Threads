@@ -47,7 +47,7 @@ public class ImplementacaoFilaThread extends Thread {
 			}
 			
 			try {
-				Thread.sleep(1000);//Após processar toda a lista  dá um tempo para a limpeza de memória
+				Thread.sleep(100);//Após processar toda a lista  dá um tempo para a limpeza de memória
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
