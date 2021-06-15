@@ -9,17 +9,20 @@ public class ImplementacaoFilaThread extends Thread {
 	// Tem que ser estático para poder lá na tela acessar essa mesma instância, com
 	// os mesmos dados para poder manipular essa lista, adicionar elementos nessa
 	// pilha para opder ficar processando em paralelo
-	private static ConcurrentLinkedQueue<ObjetoFilaThread> pilha_filha = 
+	private static ConcurrentLinkedQueue<ObjetoFilaThread> pilha_fila = 
 			new ConcurrentLinkedQueue<ObjetoFilaThread>();//ConcurrentLinkedQueue é uma classe do java para usar em processamento paralelo junto com as threads
 
-	public static void add(ObjetoFilaThread objetoFilaThread) {
-		pilha_filha.add(objetoFilaThread);
+	public static void add(ObjetoFilaThread objetoFilaThread) {//Recebe o objeto com os dados da tela e coloca na pilha
+		pilha_fila.add(objetoFilaThread);
 	}
 	
 	@Override
 	public void run() {
-		Iterator iteracao = pilha_filha.iterator();// Chamando o iterator porque PILHA_FILHA não tem interação - interage para percorrer a lista
-
+		
+		System.out.println("Fila rodando");
+		
+		while(true) {
+		Iterator iteracao = pilha_fila.iterator();// Chamando o iterator porque PILHA_FILA não tem interação - interage para percorrer a lista
 		synchronized (iteracao) {//Bloqueia o acesso a esta lista por outros processos - só essa thread acessa essa lista
 			
 		
@@ -30,6 +33,10 @@ public class ImplementacaoFilaThread extends Thread {
 			/* Processar 10 mil notas fiscais */
 			/* Gerar uma lista enorme de PDF */
 			/* Gerar um envio em massa de email */
+			System.out.println("-------------------------------");
+			
+			System.out.println(processar.getNome());
+			System.out.println(processar.getEmail());
 			
 			iteracao.remove();//Após processar o objeto ele é removido
 			
@@ -46,6 +53,11 @@ public class ImplementacaoFilaThread extends Thread {
 			}
 		}	
 		}
+		}
+	}
+	@Override
+	public synchronized void start() {//Como o Thread já tem o Start, não precisaria desse método
+		super.start();//Referência para Thread
 	}
 
 }
