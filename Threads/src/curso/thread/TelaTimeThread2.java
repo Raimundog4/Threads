@@ -16,9 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TelaTimeThread extends JDialog {
+public class TelaTimeThread2 extends JDialog {// Framework do próprio java para criar aplicação para desktop
 
-	private JPanel jPanel = new JPanel(new GridBagLayout()); 
+	/* Painel de componentes */
+	private JPanel jPanel = new JPanel(new GridBagLayout()); //Inicia dizendo que vamos fazer o controle dos componentes dentro dele, por isso o new GridBagLayout
 	
 	private JLabel descricaoHora = new JLabel("Time Thread 1"); 
 	private JTextField mostraTempo = new JTextField();
@@ -33,11 +34,13 @@ public class TelaTimeThread extends JDialog {
 		
 		@Override
 		public void run() {
-			while(true) {
+			while(true) {//Fica sempre rodando
 	
 				mostraTempo.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
 						format(Calendar.getInstance().getTime()));
-				
+				/* Poderia ser assim */
+//				mostraTempo2.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
+//						format(Calendar.getInstance().getTime()));
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -62,25 +65,27 @@ public class TelaTimeThread extends JDialog {
 		}
 	};
 	
-	private Thread thread1Time;
+	private Thread thread1Time;//Objeto thread
 	private Thread thread2Time;
 	
-	public TelaTimeThread() {
-		super.setTitle("Minha tela de time com Thread");
+	public TelaTimeThread2() {// Executa o que tiver dentro no momento da abertura ou execução
+		super.setTitle("Minha tela de time com Thread");// Está vindo da superclasse JDialog
 		super.setSize(new Dimension(240, 240));
-		setLocationRelativeTo(null);
-		setResizable(false);
+		setLocationRelativeTo(null);// Pede para centralizar a tela de acordo com algum componente, mas não temos nenhum componente base
+		setResizable(false);// Ativa ou desativa a opção de aumentar ou diminuir tela
+		/* Primeira parte concluída */
 
 		
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0; 
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.insets = new Insets(5, 10, 5, 5);
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();//Controlador de posicionamento de botões na tela
+		gridBagConstraints.gridx = 0; // Linhas - sentido horizontal - linha 0
+		gridBagConstraints.gridy = 0; // Colunas - sentido vertical - coluna 0
+		gridBagConstraints.gridwidth = 2; // Diz que tem que ocupar o espaço de 2
+		gridBagConstraints.insets = new Insets(5, 10, 5, 5);// Altura do top, esuqerda, baixo e direita
 		gridBagConstraints.anchor = GridBagConstraints.WEST; 
 		
-		descricaoHora.setPreferredSize(new Dimension(200, 25));
-		jPanel.add(descricaoHora, gridBagConstraints);
+		descricaoHora.setPreferredSize(new Dimension(200, 25));//Tamanho do botão
+		//(qual componente inserir, gerenciador)
+		jPanel.add(descricaoHora, gridBagConstraints); // Colocar o componente dentro do painel
 		
 		mostraTempo.setPreferredSize(new Dimension(200, 25));
 		mostraTempo.setEditable(false);
@@ -96,7 +101,7 @@ public class TelaTimeThread extends JDialog {
 		gridBagConstraints.gridy ++;
 		jPanel.add(mostraTempo2, gridBagConstraints);
 		
-		gridBagConstraints.gridwidth = 1;
+		gridBagConstraints.gridwidth = 1; // Fala que o espaço volta a ser 1 e ele coloca dois botões nesse espaço - mede a parte de cima e encaixa dois botões embaixp
 		
 		jButton.setPreferredSize(new Dimension(92, 25));
 		gridBagConstraints.gridy ++;
@@ -105,12 +110,12 @@ public class TelaTimeThread extends JDialog {
 		jButton.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {// Executa o clique no botão
 				jButton.setEnabled(false);
 				jButton2.setEnabled(true);
 				
-				thread1Time = new Thread(thread1);
-				thread1Time.start();
+				thread1Time = new Thread(thread1);// Temos uma thread recebendo um runnable que vai ficar executando a nossa data e colocando no campo de texto
+				thread1Time.start();// Quando dá esse start ele fica executando o run por trás
 				thread2Time = new Thread(thread2);
 				thread2Time.start();
 			}
@@ -134,8 +139,10 @@ public class TelaTimeThread extends JDialog {
 			}
 		});
 		
-		add(jPanel, BorderLayout.WEST);
-		setVisible(true);
+		//Para adiocionar o Panel ao JDialog
+		add(jPanel, BorderLayout.WEST);// Acima do setVisible faz um add passando o jPanel. Depois da ',' o comando é para o label se posicionar à esquerda
+		/* Sempre será o último comando */
+		setVisible(true);// Torna a tela visível para o usuário
 	}
 
 }
