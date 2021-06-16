@@ -30,8 +30,8 @@ public class TelaTimeThreadImplementacao extends JDialog {
 	private ImplementacaoFilaThread fila = new ImplementacaoFilaThread();
 
 	public TelaTimeThreadImplementacao() {
-		super.setTitle("Minha tela de time com Thread");
-		super.setSize(new Dimension(240, 240));
+		setTitle("Minha tela de time com Thread");
+		setSize(new Dimension(240, 240));
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -75,6 +75,7 @@ public class TelaTimeThreadImplementacao extends JDialog {
 					fila.start();
 				}
 				
+				
 				for (int qtd = 0; qtd < 100; qtd ++) {/* Simulando 100 envios em massa - a execução é instantânea, mas é colocado na fila */
 				
 				ObjetoFilaThread filaThread = new ObjetoFilaThread();
@@ -98,6 +99,7 @@ public class TelaTimeThreadImplementacao extends JDialog {
 
 				fila.stop();
 				fila = null;
+				
 			}
 		});
 
